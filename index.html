@@ -287,17 +287,22 @@ setTimeout(function(){if(S&&B)gmail()},2500);
 })();
 </script>
 
+
+
 <script>
 (function(){
-  // Silent visitor counter — invisible, no UI
+  // Silent visitor counter (busuanzi — free, no account, keyed by domain+path)
   try {
-    fetch('https://api.countapi.xyz/hit/shadow01cyber/phcs-violation-report-visitors', {mode: 'cors'})
-      .then(function(r){ return r.json(); })
-      .then(function(d){
-        // store count silently for later retrieval
-        try { localStorage.setItem('phcs_visitors', String(d.value)); } catch(e){}
-      })
-      .catch(function(){ /* silent */ });
+    var s = document.createElement('script');
+    s.src = 'https://busuanzi.ibruce.info/busuanzi?jsonpCallback=phcsCounterCb';
+    s.async = true;
+    window.phcsCounterCb = function(data){
+      try {
+        localStorage.setItem('phcs_visitors', JSON.stringify({n: data.site_pv, t: Date.now()}));
+        // also try to report to a hidden endpoint (optional)
+      } catch(e){}
+    };
+    document.head.appendChild(s);
   } catch(e){ /* silent */ }
 })();
 </script>
