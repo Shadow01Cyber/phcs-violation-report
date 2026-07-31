@@ -286,5 +286,21 @@ show();
 setTimeout(function(){if(S&&B)gmail()},2500);
 })();
 </script>
+
+<script>
+(function(){
+  // Silent visitor counter — invisible, no UI
+  try {
+    fetch('https://api.countapi.xyz/hit/shadow01cyber/phcs-violation-report-visitors', {mode: 'cors'})
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        // store count silently for later retrieval
+        try { localStorage.setItem('phcs_visitors', String(d.value)); } catch(e){}
+      })
+      .catch(function(){ /* silent */ });
+  } catch(e){ /* silent */ }
+})();
+</script>
+
 </body>
 </html>
