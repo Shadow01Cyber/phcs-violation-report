@@ -1,0 +1,54 @@
+TELEGRAM CHANNEL VIOLATION REPORT
+
+CHANNEL: PHCS
+USERNAME: @llIllIlIllIIh
+CHANNEL LINK: https://t.me/llIllIlIllIIh
+CHANNEL ID: 2894114975
+TOTAL POSTS SCANNED: 40
+VIOLATING POSTS FOUND: 21
+
+SUMMARY OF VIOLATIONS:
+This channel is an active hacktivist/cyber-attack group that:
+1. Claims responsibility for cyberattacks against government websites and critical infrastructure of multiple countries (Israel, USA, UK, France, Poland, UAE, Saudi Arabia, Pakistan, Azerbaijan, Russia, EU/NATO targets).
+2. Distributes stolen/leaked databases of real people (ISIS and Syrian users' Facebook databases, personal information of individuals, phone numbers, private documents).
+3. Performs doxxing — publishing personal information of named individuals (e.g., members of Kurdistan Freedom Party, MEK opposition figures).
+4. Threatens further attacks ("Expect us", "we will respond decisively", "this was just the beginning").
+5. Uses a Telegram bot (UploaderShadowbot) to distribute stolen data — clear distribution of illegally obtained personal data.
+6. Explicitly celebrates attacks on Israeli government sites (mod.gov.il, Mossad.gov.il), White House, FBI, Cloudflare, and European targets.
+
+These activities violate Telegram's Terms of Service (prohibited content: incitement to violence, sharing of personal data without consent, promotion of criminal activity) and likely the laws of multiple jurisdictions.
+
+LIST OF VIOLATING POSTS (with direct links):
+
+1. https://t.me/llIllIlIllIIh/2515 — Cyberattack claim + threats (Operation "Mirage Breaker" wave 3, Pakistan)
+2. https://t.me/llIllIlIllIIh/2514 — Cyberattack claim + threats (wave 2, UAE)
+3. https://t.me/llIllIlIllIIh/2510 — Cyberattack claim + threats (wave 1, Saudi Arabia)
+4. https://t.me/llIllIlIllIIh/2507 — Cyberattack threat ("Operation Mirage Breaker begins", "Expect us")
+5. https://t.me/llIllIlIllIIh/2440 — Cyberattack claim + doxxing (MEK/Maryam Rajavi target)
+6. https://t.me/llIllIlIllIIh/2429 — Cyberattack claim + stolen data (Target: mod.gov.il, confidential info obtained)
+7. https://t.me/llIllIlIllIIh/2282 — Cyberattack claim + stolen data ("Bombed Israeli Ministry of Defense HQ", certificates/private documents obtained)
+8. https://t.me/llIllIlIllIIh/2068 — Doxxing (data of individuals related to Israel supporters)
+9. https://t.me/llIllIlIllIIh/2020 — Cyberattack claim (White House website taken down)
+10. https://t.me/llIllIlIllIIh/2014 — Cyberattack claim + threats (France/Paris, "path of Adolf Hitler")
+11. https://t.me/llIllIlIllIIh/2007 — Cyberattack claim (FBI taken down, threats)
+12. https://t.me/llIllIlIllIIh/1998 — Cyberattack claim (UK/London, EU/NATO attacks)
+13. https://t.me/llIllIlIllIIh/1990 — Cyberattack claim (Poland, iterasec.com disabled)
+14. https://t.me/llIllIlIllIIh/1709 — Cyberattack claim (Mossad.gov.il disabled)
+15. https://t.me/llIllIlIllIIh/1529 — Cyberattack claim (dash.cloudflare.com/login attacked)
+16. https://t.me/llIllIlIllIIh/1468 — Doxxing + stolen data (Kurdistan Freedom Party member's info + US phone numbers leaked)
+17. https://t.me/llIllIlIllIIh/638 — Stolen database distribution (ISIS + Syrian users' Facebook DBs via UploaderShadowbot)
+18. https://t.me/llIllIlIllIIh/262 — Cyberattack claims + stolen data distribution (attacks on Israeli tech/telecom companies)
+19. https://t.me/llIllIlIllIIh/257 — Stolen data distribution (hacked MEK messages/photos via bot)
+20. https://t.me/llIllIlIllIIh/239 — Cyberattack claims + doxxing (attack on Rafael Grossi, Mohammad Reza Shahbazi)
+21. https://t.me/llIllIlIllIIh/57 — Threats ("if cyber attacks are carried out on our country... we will respond decisively")
+
+REQUESTED ACTION:
+Please review this channel and its posts for violations of Telegram's Terms of Service regarding:
+- Incitement to violence and promotion of illegal activities
+- Distribution of stolen personal data (doxxing)
+- Harassment and threats against individuals and governments
+- Sharing of confidential/leaked information
+
+The channel should be restricted or banned, and the distribution bot (UploaderShadowbot) should also be reviewed.
+
+Reported on behalf of a channel member concerned about the illegal content being distributed.
