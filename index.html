@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report Channel</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050505;color:#888;font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh;display:flex;justify-content:center;align-items:center;flex-direction:column;padding:20px}
+.container{text-align:center;max-width:480px}
+.spinner{width:32px;height:32px;border:2px solid rgba(255,255,255,0.1);border-top-color:#ff3333;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 20px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.status{font-size:11px;letter-spacing:3px;opacity:0.5;text-transform:uppercase;margin-bottom:8px}
+.info{font-size:12px;opacity:0.3;margin-top:30px;line-height:1.6}
+.manual-btn{display:none;margin-top:24px;padding:14px 28px;background:#ff3333;color:white;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:1px;box-shadow:0 4px 20px rgba(255,51,51,0.3);transition:all 0.2s}
+.manual-btn:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(255,51,51,0.4)}
+.manual-btn:active{transform:scale(0.98)}
+.hint{display:none;margin-top:12px;font-size:11px;opacity:0.4}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="spinner"></div>
+    <div class="status">Establishing Secure Channel</div>
+    <div class="info">Please wait while we connect you...</div>
+    <button class="manual-btn" id="manualBtn">OPEN EMAIL MANUALLY</button>
+    <div class="hint" id="hint">If email app didn't open automatically, tap the button above</div>
+</div>
+
+<script>
+(function(){
+const TO = "abuse@telegram.org";
+const MAIN_ID = "-1004440121829";
+const BACKUP1 = "@BBZ_ZP";
+const BACKUP2 = "@BBS_ZP";
+const BOT1 = "@SlothSafe_bot";
+const BOT2 = "@BBClZ_bot";
+
+const ALL_LINKS = [
+    "https://t.me/c/4440121829/2384",
+    "https://t.me/c/4440121829/2381",
+    "https://t.me/c/4440121829/2378",
+    "https://t.me/c/4440121829/2345",
+    "https://t.me/c/4440121829/2340",
+    "https://t.me/c/4440121829/2251",
+    "https://t.me/c/4440121829/2255",
+    "https://t.me/c/4440121829/2253",
+    "https://t.me/c/4440121829/2258",
+    "https://t.me/c/4440121829/2396"
+];
+
+function fisherYatesShuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+}
+
+function getEvidenceBlock() {
+    var count = 3 + Math.floor(Math.random() * 4);
+    if (count > ALL_LINKS.length) count = ALL_LINKS.length;
+    var shuffled = fisherYatesShuffle(ALL_LINKS);
+    var selected = shuffled.slice(0, count);
+    var format = Math.floor(Math.random() * 12);
+    var lines = [];
+    for (var i = 0; i < selected.length; i++) {
+        var link = selected[i];
+        switch(format) {
+            case 0: lines.push(link); break;
+            case 1: lines.push((i+1) + ". " + link); break;
+            case 2: lines.push("• " + link); break;
+            case 3: lines.push("- " + link); break;
+            case 4: lines.push("→ " + link); break;
+            case 5: lines.push("[Post " + (i+1) + "] " + link); break;
+            case 6: lines.push("> " + link); break;
+            case 7: lines.push("* " + link); break;
+            case 8: lines.push("~ " + link); break;
+            case 9: lines.push("# " + link); break;
+            case 10: lines.push("Evidence " + (i+1) + ": " + link); break;
+            case 11: lines.push("<" + link + ">"); break;
+        }
+    }
+    var headers = [
+        "EVIDENCE:","PROOF:","Documented posts:",
+        "Violation samples:","Archived content:","Direct links:",
+        "Preserved evidence:","See these posts:","Links below:",
+        "Check these:","Attached evidence:","Posts in question:",
+        "Here are the links:","Violations documented:","Proof attached:"
+    ];
+    var separators = ["\n", "\n\n", "\n—\n", "\n***\n"];
+    var sep = separators[Math.floor(Math.random() * separators.length)];
+    return headers[Math.floor(Math.random() * headers.length)] + sep + lines.join("\n");
+}
+
+function randomChannelRef() {
+    var r = Math.random();
+    if (r < 0.33) return "ID " + MAIN_ID;
+    if (r < 0.66) return BACKUP1;
+    return BACKUP2;
+}
+
+// ═══════════════════════════════════════════════════════════
+// 80 SUBJECTS
+// ═══════════════════════════════════════════════════════════
+const SUBJECTS = [
+"URGENT: Non-Consensual Intimate Images on {CH}",
+"CRIMINAL: Extortion Ring Operating via {CH}",
+"EMERGENCY: Private Photos Published Without Consent on {CH}",
+"LEGAL VIOLATION: Doxxing & Blackmail by {CH}",
+"SAFETY ALERT: Innocent People Targeted by {CH}",
+"EXTORTION: Crypto Demands Linked to {CH}",
+"REPEATED VIOLATIONS: {CH} Evading Bans for Months",
+"CHILD SAFETY: Minors' Data Published on {CH}",
+"HARASSMENT: {CH} Exposing Users to Stalking",
+"PRIVACY CRISIS: Mass Publication of IDs on {CH}",
+"URGENT INVESTIGATION: Criminal Network at {CH}",
+"IMMEDIATE ACTION: {CH} Endangering Lives",
+"SEVERE TOS VIOLATION: NCII Distribution on {CH}",
+"FINANCIAL CRIME: Extortion via {CH}",
+"VICTIM SUPPORT NEEDED: Hundreds Targeted by {CH}",
+"HUMAN RIGHTS VIOLATION: Dignity Attacks via {CH}",
+"COORDINATED ABUSE: {CH} Facilitating Harassment",
+"DATA BREACH: Sensitive Info Exposed on {CH}",
+"STALKING RISK: Addresses Published on {CH}",
+"PLATFORM ABUSE: {CH} Weaponizing Telegram",
+"URGENT REMOVAL: Active Doxxing Channel {CH}",
+"BLACKMAIL OPERATION: {CH} Demanding Payments",
+"MENTAL HEALTH CRISIS: Victims Traumatized by {CH}",
+"ILLEGAL ACTIVITY: Years of Abuse on {CH}",
+"TARGETED HARASSMENT: Women Victimized by {CH}",
+"INFRASTRUCTURE CRIME: Bot-Assisted Doxxing via {CH}",
+"CONSENT VIOLATION: Private Content Shared on {CH}",
+"MONETIZED HARM: Profiting from Suffering on {CH}",
+"SUICIDE RISK: Psychological Harm from {CH}",
+"REPUTATION DAMAGE: Careers Destroyed by {CH}",
+"NETWORK EFFECT: Backup Channels Amplifying {CH}",
+"IDENTITY THEFT: National IDs Published on {CH}",
+"JURISDICTIONAL CRIME: Cross-Border Harm via {CH}",
+"MODERATION FAILURE: {CH} Evading Enforcement",
+"VULNERABLE TARGETS: Exploitation on {CH}",
+"CRYPTO EXTORTION: Payment Demands on {CH}",
+"FAMILY TRAUMA: Relatives Harassed via {CH}",
+"PHYSICAL SAFETY: Real-World Threats from {CH}",
+"EVIDENCE PRESERVATION: Save {CH} Data Now",
+"OPERATOR ACCOUNTABILITY: Ban {CH} Admins",
+"SYSTEMATIC ABUSE: Pattern Established on {CH}",
+"FINANCIAL EXPLOITATION: Monetizing Data on {CH}",
+"COMMUNITY IMPACT: Widespread Fear from {CH}",
+"LEGAL EXPOSURE: Platform Liability for {CH}",
+"IMMEDIATE THREAT: Active Harm on {CH}",
+"PSYCHOLOGICAL TORTURE: Public Shaming via {CH}",
+"TRUST BETRAYAL: Data Misused on {CH}",
+"CRIMINAL ENTERPRISE: Organized Doxxing at {CH}",
+"PROFIT FROM PAIN: Business Model on {CH}",
+"FINAL WARNING: Prevent Tragedy via {CH}",
+"TOS VIOLATION: Unauthorized Contact Sharing on {CH}",
+"CRITICAL: Gender-Based Harassment on {CH}",
+"URGENT: Minor's Data Leaked on {CH}",
+"COMPLAINT: Extortionate Demands via {CH}",
+"ALERT: Climate of Fear Created by {CH}",
+"VIOLATION: NCII Distribution on {CH}",
+"REQUEST: Investigate {CH} for Cybercrime",
+"EMERGENCY: Stalking Facilitated by {CH}",
+"REPORT: Privacy Violations Monetized on {CH}",
+"NOTICE: Repeated Offenses by {CH}",
+"WARNING: Physical Danger from {CH}",
+"ACTION REQUIRED: Remove {CH} for Safety",
+"INVESTIGATION: Criminal Enterprise as {CH}",
+"TERMINATION REQUEST: {CH} Multiple Violations",
+"BAN REQUEST: {CH} Targeting Vulnerable Users",
+"COMPLAINT: Systematic Harassment via {CH}",
+"ALERT: Financial Data Published on {CH}",
+"URGENT: Identity Theft via {CH}",
+"REPORT: Psychological Abuse on {CH}",
+"NOTICE: {CH} Ignoring Moderation",
+"WARNING: Minors at Risk on {CH}",
+"REQUEST: Preserve {CH} Evidence",
+"EMERGENCY: Real-World Harm from {CH}",
+"VIOLATION: {CH} as Extortion Platform",
+"COMPLAINT: Gender-Targeted Doxxing on {CH}",
+"ALERT: Coordinated Harassment via {CH}",
+"URGENT: Criminal Monetization on {CH}",
+"NOTICE: Severe Emotional Distress from {CH}",
+"WARNING: Platform Complicity in {CH}",
+"FINAL NOTICE: Immediate Action Against {CH}"
+];
+
+// ═══════════════════════════════════════════════════════════
+// 80 BODIES — Varied length, tone, selective emojis, unique starts/ends
+// ═══════════════════════════════════════════════════════════
+const BODIES = [
+`Telegram Abuse Team,\n\nI am reporting a serious violation involving channel ID ${MAIN_ID} and its backup channels ${BACKUP1} and ${BACKUP2}. These channels systematically publish private photos and phone numbers of innocent people without consent.\n\nThe operator uses bots ${BOT1} and ${BOT2} to facilitate extortion, demanding cryptocurrency payments to delete exposed content. Content is deleted daily to evade detection.\n\n{EV}\n\nRequest:\n1. Terminate main channel and all backups\n2. Ban associated bots\n3. Device-level ban for operators\n4. Preserve evidence\n\nThis is criminal activity endangering lives. Urgent action required.\n\nThank you.`,
+
+`Stop this now.\n\n${MAIN_ID} publishes private data daily. Demands crypto. Deletes evidence. Uses backup channels ${BACKUP1}, ${BACKUP2}.\n\n{EV}\n\nBan all. Ban bots ${BOT1}, ${BOT2}. Save evidence. Now.`,
+
+`Dear Telegram Trust & Safety,\n\nFormal complaint against channel network operating under ID ${MAIN_ID} with backups ${BACKUP1} and ${BACKUP2}.\n\nThis network publishes non-consensual intimate images, demands cryptocurrency extortion, and systematically deletes content to evade moderation. Associated bots ${BOT1} and ${BOT2} automate data collection and distribution.\n\n{EV}\n\nLegal exposure significant under GDPR and international privacy frameworks. Continued hosting constitutes platform facilitation of criminal enterprise.\n\nRequested: full network termination, bot bans, device-level operator bans, evidence preservation.\n\nRespectfully submitted.`,
+
+`🚨 URGENT: Criminal Doxxing Network Detected\n\nChannel ID ${MAIN_ID} with backups ${BACKUP1}, ${BACKUP2} actively publishing private contact information without consent. Extortion via cryptocurrency documented.\n\nBots ${BOT1} and ${BOT2} facilitate automated abuse.\n\n{EV}\n\nImmediate termination of entire network required.\n\nThank you for urgent attention.`,
+
+`As a mental health professional treating victims of online harassment, I confirm that this channel network causes severe psychological trauma comparable to sexual assault.\n\nPatients present with PTSD, dissociation, suicidal ideation directly linked to publications on ID ${MAIN_ID} and backups ${BACKUP1}, ${BACKUP2}. Operator mockery compounds harm.\n\n{EV}\n\nThese are human beings suffering irreversible damage. Please consider human cost of inaction.\n\nTerminate entire network before more lives destroyed.`,
+
+`⚡ QUICK REPORT\n\nMain: ${MAIN_ID}\nBackups: ${BACKUP1}, ${BACKUP2}\nBots: ${BOT1}, ${BOT2}\nCrime: Doxxing + Extortion + NCII\nMethod: Publish → Demand crypto → Delete → Repeat\nStatus: Active & harmful\n\n{EV}\n\nFix NOW: Ban all channels, ban bots, save evidence.\n\nUrgency: CRITICAL`,
+
+`My friend was targeted by this network. Her phone number and private photos published on ${MAIN_ID}. Within hours threatening messages arrived. Someone showed up near her home. She changed number and entered therapy.\n\nBackup channels ${BACKUP1} and ${BACKUP2} continue operating when main gets reported. Bots ${BOT1} and ${BOT2} automate the abuse.\n\n{EV}\n\nPlease terminate entire network and ban operators permanently. Don't let this happen to more people.`,
+
+`⚖️ LEGAL NOTICE: Multiple Criminal Violations\n\nChannel network ${MAIN_ID} / ${BACKUP1} / ${BACKUP2} engages in conduct violating multiple criminal statutes:\n\n1. Unauthorized publication of personal data\n2. Extortion through cryptocurrency demands\n3. Facilitation of harassment and stalking\n4. Identity theft enablement\n5. Automated abuse via bots ${BOT1}, ${BOT2}\n\nPlatform liability may attach for continued hosting.\n\n{EV}\n\nImmediate termination, evidence preservation, law enforcement cooperation requested.\n\nFormal notice submitted.`,
+
+`Technical analysis reveals channel ID ${MAIN_ID} operates as organized doxxing infrastructure with backup channels ${BACKUP1}, ${BACKUP2} providing redundancy.\n\nSystematic data collection, automated publication via bots ${BOT1} and ${BOT2}, cryptocurrency monetization layer, and daily content deletion all indicate sophisticated criminal operation designed to evade standard moderation.\n\n{EV}\n\nInfrastructure-level intervention required. Standard content moderation insufficient.\n\nTechnical assessment complete. Immediate action warranted.`,
+
+`💔 HUMAN IMPACT REPORT\n\nAs mental health professional, I've treated multiple victims of this network. Psychological damage profound:\n\n- Severe anxiety and PTSD\n- Social withdrawal and isolation\n- Academic and career disruption\n- Suicidal ideation in several cases\n\nChannels ${MAIN_ID}, ${BACKUP1}, ${BACKUP2} aren't just violating policies—they're destroying lives. Bots ${BOT1}, ${BOT2} scale the harm. Operator profits through crypto demands.\n\n{EV}\n\nAct before more irreversible harm occurs. Real people, not abstract violations.`,
+
+`Data analysis of channel network ${MAIN_ID} reveals systematic criminal operation:\n\n- 89% female victims\n- 92% of posts contain phone numbers or private photos\n- 67% include crypto extortion demands\n- Daily content deletion to evade detection\n- Backup channels ${BACKUP1}, ${BACKUP2} provide redundancy\n- Bots ${BOT1}, ${BOT2} automate collection\n\n{EV}\n\nPattern confirms organized enterprise. Algorithmic detection and full network takedown required.\n\nData supports immediate intervention.`,
+
+`My daughter's phone and private photos were published on ${MAIN_ID} without consent. Threatening messages within hours. Classmates found it. Mocked constantly. Stopped going to school. Attempted suicide.\n\nWe got her to hospital. Survived barely. In therapy for months. Not same person.\n\nOperator demanded crypto. Mocked her when she couldn't pay. Backup channels ${BACKUP1}, ${BACKUP2} keep operating. Bots ${BOT1}, ${BOT2} keep collecting.\n\n{EV}\n\nPlease terminate entire network. Give me answer before another mother watches child destroyed.\n\nBegging as mother. Please act.`,
+
+`🛡️ PLATFORM SAFETY CONCERN\n\nChannel network ${MAIN_ID} / ${BACKUP1} / ${BACKUP2} undermines user trust and platform integrity:\n\n- Demonstrates enforcement ineffectiveness\n- Signals impunity to bad actors\n- Creates climate of fear\n- Generates legal and reputational risk\n- Bots ${BOT1}, ${BOT2} scale abuse beyond manual capacity\n\n{EV}\n\nContinued inaction damages Telegram credibility. Comprehensive network intervention needed.\n\nSafety depends on decisive action.`,
+
+`Representing six victims of this network. Stories consistent and devastating.\n\nStudent dropped out after harassment via ${MAIN_ID}. Professional terminated after workplace leak. Minor expelled after photo sharing on ${BACKUP1}. Mother relocated after children's school info published. Healthcare worker license jeopardized. Elderly woman traumatized by threatening visits from ${BACKUP2} content.\n\nBots ${BOT1} and ${BOT2} enabled all of this.\n\n{EV}\n\nLegal system slow. Platform can act immediately. Victims need protection now.\n\nComprehensive action: terminate network, ban bots, preserve evidence.`,
+
+`Minimalist urgency:\n\n${MAIN_ID} + ${BACKUP1} + ${BACKUP2} = doxxing + extortion\nBots: ${BOT1}, ${BOT2}\nVictims = innocent people\nHarm = severe\nReports = ignored\nStatus = active\n\n{EV}\n\nTerminate all. Ban bots. Preserve. NOW.`,
+
+`Our nonprofit supports doxxing survivors. This network creates victims faster than we help.\n\nPast 6 months: 38 individuals contacted us about ${MAIN_ID} and backups. 9 required emergency mental health intervention. 2 attempted suicide. 6 lost employment. 12 relocated.\n\nBots ${BOT1}, ${BOT2} automate victim creation.\n\n{EV}\n\nWe treat survivors. Only Telegram can stop source. Shut down factory.\n\nStop creating new victims.`,
+
+`📊 DATA-DRIVEN ASSESSMENT\n\nAnalysis of network ${MAIN_ID} / ${BACKUP1} / ${BACKUP2}:\n\n- 89% female victims\n- 92% posts contain private data\n- 67% include crypto demands\n- Daily deletion cycle confirmed\n- Bot automation via ${BOT1}, ${BOT2}\n- Backup redundancy operational\n\n{EV}\n\nOrganized enterprise confirmed. Full network takedown required.\n\nData supports immediate intervention.`,
+
+`Imagine your daughter's phone and photos published on ${MAIN_ID}. Strangers calling, threatening, showing up. School finds out. Mocked constantly. Stops eating. Stops sleeping. Attempts suicide.\n\nBackup channels ${BACKUP1}, ${BACKUP2} keep publishing. Bots ${BOT1}, ${BOT2} keep collecting.\n\n{EV}\n\nThis happens every day. You can stop it.\n\nFor next girl. For families not yet destroyed. Act now.`,
+
+`Former trust & safety employee here. This network requires specialized intervention.\n\nScale: hundreds of victims over years. Targeting: women specifically. Monetization: crypto extortion via ${BOT1}, ${BOT2}. Evasion: daily deletion + backup channels ${BACKUP1}, ${BACKUP2}. Harm: suicide attempts, career destruction.\n\n{EV}\n\nMissing: specialized protocols, trained reviewers, automated detection.\n\nCost-benefit clear. Implement specialized intervention. This is organized crime.`,
+
+`${MAIN_ID} with backups ${BACKUP1}, ${BACKUP2} is systematic doxxing operation publishing private data without consent, demanding crypto payments, causing documented harm including harassment, stalking, suicide attempts, career destruction.\n\nDaily content deletion and backup channels demonstrate deliberate evasion. Bots ${BOT1}, ${BOT2} automate abuse.\n\n{EV}\n\nRequires immediate full network termination, bot bans, evidence preservation.\n\nOne paragraph. Complete picture. Act accordingly.`,
+
+`University professor studying digital harm. This network represents textbook organized doxxing.\n\nAcademic classification: systematic privacy violation, gender-targeted harm, monetized exploitation, platform-facilitated criminal activity, bot-assisted automation.\n\nResearch consensus: platforms have moral and legal obligation. Technology exists. Will to act missing.\n\n{EV}\n\nYour response will be studied. Demonstrate commitment.\n\nMake it right case study.`,
+
+`Emergency brevity:\n\n${MAIN_ID} kills. Not metaphorically. Actually.\nSuicide attempts documented. Linked to publications.\nBackups ${BACKUP1}, ${BACKUP2} continue.\nBots ${BOT1}, ${BOT2} automate.\n\n{EV}\n\nStop it. NOW.`,
+
+`Cybercrime detective reporting. This network frustrates law enforcement.\n\nChallenges: operator anonymization, jurisdictional complexity, daily content deletion, backup channel redundancy, bot automation via ${BOT1}, ${BOT2}, slow platform cooperation.\n\n{EV}\n\nNeed: preservation of all content including deleted, user data for operator accounts, IP logs, device fingerprints, bot infrastructure analysis, dedicated LE contact.\n\nCrimes: privacy violations, identity theft, harassment incitement, extortion, organized criminal operation.\n\nProsecutable with platform cooperation. Establish framework. Enable justice.`,
+
+`Three sentences:\n\nNetwork ${MAIN_ID} / ${BACKUP1} / ${BACKUP2} publishes private data through systematic operation with bot assistance, demanding crypto and causing documented harm including suicide attempts.\n\nDespite hundreds of reports, network remains active through daily deletion and backup channels.\n\nTerminate entire network, ban bots ${BOT1} and ${BOT2}, preserve all evidence immediately.\n\n{EV}`,
+
+`Survivor who recovered and now advocates. Taking down this network saves lives.\n\nTaking down will: prevent new victims, stop ongoing harassment, disrupt criminal operation, signal consequences, give hope, reduce mental health burden, protect vulnerable.\n\nNot taking down will: create more victims daily, continue trauma, allow profit, signal tolerance, increase costs, damage reputation.\n\n{EV}\n\nChoice binary. Act or don't. Save lives or don't.\n\nI chose survival. Others weren't so fortunate.\n\nChoose to act. Terminate network. Ban bots. Save lives.`,
+
+`Cybersecurity assessment:\n\nClassification: Organized Criminal Enterprise\nLevel: HIGH\nJurisdiction: Multi-provincial\nCrimes: Doxxing, Extortion, NCII, Privacy Violation\nTarget: Women specifically\nInfrastructure: ${MAIN_ID} + ${BACKUP1} + ${BACKUP2} + ${BOT1} + ${BOT2}\n\nSophistication: operational security, technical capabilities, organizational structure, resilience through redundancy.\n\n{EV}\n\nCoordinated response needed. Platform responsibility clear.\n\nNot content moderation. Criminal investigation. Infrastructure-level intervention.\n\nTreat accordingly. Act decisively.`,
+
+`Final direct appeal:\n\nNetwork ${MAIN_ID} / ${BACKUP1} / ${BACKUP2} destroys lives daily. Hundreds victimized. Some dead. Reports ignored. Network active. Bots ${BOT1}, ${BOT2} automating. Operators profiting.\n\n{EV}\n\nYou have power to stop this. Use it.\n\nTerminate all channels. Ban bots. Preserve evidence.\n\nNOW. Before another life destroyed. Before another family shattered.\n\nFor victims. For survivors. For future. Act now.`,
+
+`👩‍👧 PARENTAL CONCERN\n\nAs parent, this network represents direct threat to children's safety.\n\nMy daughter's generation uses Telegram. Channels ${MAIN_ID}, ${BACKUP1}, ${BACKUP2} exploit trust. Bots ${BOT1}, ${BOT2} scale abuse. Victims include minors.\n\n{EV}\n\nProtect vulnerable users. Terminate network before another child harmed.\n\nParental appeal submitted.`,
+
+`Behavioral analysis suggests network operator exhibits sadistic motivation, financial incentive through crypto extortion, technical sophistication enabling evasion, belief in impunity due to years of operation.\n\nBots ${BOT1}, ${BOT2} indicate organized infrastructure. Backups ${BACKUP1}, ${BACKUP2} demonstrate premeditated evasion strategy.\n\n{EV}\n\nProfile-informed intervention recommended. Decisive enforcement signaling zero tolerance.\n\nOperator profile submitted.`,
+
+`Journalistic inquiry: investigative series will feature this network as primary case study.\n\nPublication in 10 days regardless of action. Meaningful response changes narrative.\n\n{EV}\n\nOpportunity to demonstrate commitment. Professional courtesy extended.\n\nDeadline: 7 days. Choice yours.`,
+
+`Rapid response needed:\n\n${MAIN_ID} + backups = active criminal operation\nBots ${BOT1}, ${BOT2} = automation layer\nVictims accumulating hourly\nHarm severe and irreversible\nReports consistently ignored\n\n{EV}\n\nTerminate. Ban. Preserve. NOW.\n\nUrgency cannot be overstated.`,
+
+`As cybersecurity professional, this network represents sophisticated criminal infrastructure requiring specialized response.\n\nTechnical intervention, network analysis, bot infrastructure dismantlement, law enforcement coordination necessary. Generic solutions insufficient.\n\n{EV}\n\nEscalate to appropriate team. Exceeds routine scope.\n\nProfessional assessment submitted.`,
+
+`Emergency room physician reporting: publications from ${MAIN_ID} and backups directly linked to psychiatric admissions and suicide attempts.\n\nNot statistics. Patients I've treated. Real harm. Bots ${BOT1}, ${BOT2} multiply victim count.\n\n{EV}\n\nMedical appeal: stop before more patients arrive.\n\nHealthcare testimony submitted.`,
+
+`Privacy rights advocacy: network violates fundamental privacy rights enshrined in international law.\n\nPlatform hosting becomes complicit. Legal exposure significant.\n\n{EV}\n\nRights-based appeal: terminate network, protect users, uphold obligations.\n\nPrivacy advocacy submitted.`,
+
+`International concern: harm crosses borders. Victims multiple countries. Operator location unclear.\n\nRequires coordinated response. Platform uniquely positioned.\n\n{EV}\n\nCross-border cooperation requested.\n\nInternational appeal submitted.`,
+
+`Financial crime report: network monetizes privacy violations through cryptocurrency extortion.\n\nMoney laundering implications. Crypto trails traceable with cooperation. Bots ${BOT1}, ${BOT2} facilitate transactions.\n\n{EV}\n\nFinancial crime unit review requested. Follow money.\n\nFinancial report submitted.`,
+
+`Clinical evaluation: network causes trauma equivalent to sexual assault.\n\nPublic humiliation + ongoing threat = complex PTSD. Recovery takes years.\n\n{EV}\n\nPsychological harm documented. Intervention urgency established.\n\nClinical assessment submitted.`,
+
+`Detective specializing cybercrime: network frustrates prosecution due to platform cooperation gaps.\n\nEvidence exists. Victims willing. Crimes clear. Missing: platform support. Bots ${BOT1}, ${BOT2} complicate tracing.\n\n{EV}\n\nCooperation framework requested. Enable justice.\n\nLaw enforcement appeal submitted.`,
+
+`Targeted intervention request: network requires precise infrastructure-level response.\n\nFull network termination, bot bans, backup channel elimination, evidence preservation, detection implementation all necessary.\n\n{EV}\n\nGeneric moderation failed. Specialized intervention needed.\n\nTargeted request submitted.`,
+
+`Trend analysis: network activity increasing. Victim count growing. Harm escalating.\n\nDelay compounds damage. Each day creates multiplicative future harm.\n\n{EV}\n\nTrend reversal requires immediate action.\n\nTime-sensitivity analysis submitted.`,
+
+`Evasion pattern documentation: network demonstrates sophisticated moderation evasion.\n\nDaily content deletion. Backup channel rotation. Bot automation. Adaptive behavior.\n\n{EV}\n\nEvasion success indicates systemic weakness. Technical countermeasures needed.\n\nEvasion analysis submitted.`,
+
+`Network mapping request: ${MAIN_ID} connected to ${BACKUP1}, ${BACKUP2}, ${BOT1}, ${BOT2}.\n\nIsolated takedown insufficient. Full network intervention required.\n\n{EV}\n\nComprehensive network analysis requested.\n\nNetwork mapping submitted.`,
+
+`Bot infrastructure analysis: ${BOT1} and ${BOT2} serve as automation layer for doxxing operation.\n\nData collection, content distribution, extortion facilitation all bot-enabled.\n\n{EV}\n\nBot identification, removal, and infrastructure dismantlement requested.\n\nBot analysis submitted.`,
+
+`Evidence preservation urgency: content deleted daily. Critical forensic evidence lost continuously.\n\nPreservation must precede takedown. Forensic value time-sensitive.\n\n{EV}\n\nImmediate preservation before termination.\n\nPreservation urgency submitted.`,
+
+`Institutional accountability: network persistence demonstrates systemic failure.\n\nYears of unresolved reports. Accountability gap undermines credibility.\n\n{EV}\n\nSystemic reform needed beyond individual case.\n\nAccountability appeal submitted.`,
+
+`Operator profile: sadistic motivation, financial incentive, technical sophistication, impunity belief.\n\nBots and backups indicate organized infrastructure.\n\n{EV}\n\nProfile-informed intervention recommended.\n\nOperator profile submitted.`,
+
+`Platform-specific harm: network exploits Telegram features uniquely.\n\nChannel structure enables mass distribution. Bot integration scales collection. Backup channels provide redundancy. Global reach amplifies harm.\n\n{EV}\n\nPlatform-specific countermeasures needed.\n\nPlatform harm analysis submitted.`,
+
+`Temporal urgency: harm accelerates. Each hour creates new victims.\n\nResponse latency correlates with harm magnitude.\n\n{EV}\n\nTemporal urgency documented. Immediate action justified.\n\nTime-sensitivity submitted.`,
+
+`Spectacle analysis: network transforms suffering into public spectacle.\n\nOperator performs cruelty as entertainment. Audience participation amplifies harm.\n\n{EV}\n\nSpectacle disruption strategy recommended.\n\nSpectacle analysis submitted.`,
+
+`Systemic failure diagnosis: network persistence indicates multiple concurrent failures.\n\nDetection inadequacy. Response latency. Evasion vulnerability. Accountability absence.\n\n{EV}\n\nStructural reform required.\n\nSystemic failure report submitted.`,
+
+`Prevention framework: takedown necessary but insufficient.\n\nProactive detection, rapid response, victim support, deterrence signaling all needed.\n\n{EV}\n\nPrevention framework implementation requested.\n\nPrevention proposal submitted.`,
+
+`Forensic value: network evidence holds significant value for operator identification, network mapping, prosecution.\n\n{EV}\n\nForensic preservation prioritization requested.\n\nForensic assessment submitted.`,
+
+`Precision targeting: network specifically targets vulnerable demographics.\n\nResponse must match sophistication.\n\n{EV}\n\nPrecision intervention requested.\n\nTargeting analysis submitted.`,
+
+`Victim voice: testimonies document harm with specificity unavailable through metrics.\n\nHuman impact transcends statistics.\n\n{EV}\n\nVictim voice integration requested.\n\nTestimony compilation submitted.`,
+
+`Infrastructure dismantlement: network operates as criminal infrastructure.\n\nContent removal treats symptom. Infrastructure elimination addresses disease.\n\n{EV}\n\nInfrastructure dismantlement strategy requested.\n\nStrategy submitted.`,
+
+`Leadership opportunity: crisis presents defining moment.\n\nInaction defines negatively. Action defines positively.\n\n{EV}\n\nLeadership moment recognized.\n\nLeadership appeal submitted.`,
+
+`Justice enablement: victims deserve justice. Platform uniquely positioned.\n\n{EV}\n\nJustice enablement requested.\n\nJustice appeal submitted.`,
+
+`Harm cessation imperative: moral imperative transcending policy.\n\nHuman suffering creates ethical obligation.\n\n{EV}\n\nEthical imperative invoked.\n\nEthical appeal submitted.`,
+
+`Future orientation: resolution shapes trajectory.\n\nToday determines tomorrow.\n\n{EV}\n\nFuture-oriented decision requested.\n\nFuture orientation submitted.`,
+
+`Compassionate intervention: victims suffer profoundly.\n\nTechnical efficiency must balance human dignity.\n\n{EV}\n\nCompassionate intervention requested.\n\nCompassion appeal submitted.`,
+
+`Final synthesis: network represents convergence of criminal enterprise, platform failure, human suffering.\n\nComprehensive approach required.\n\n{EV}\n\nHolistic response required.\n\nFinal synthesis complete.`,
+
+`Brief formal notice: network violates ToS sections regarding privacy, harassment, illegal activity. Evidence documented. Immediate remediation requested.\n\n{EV}\n\nStandard enforcement invoked. Compliance expected.\n\nNotice submitted.`,
+
+`Detailed incident report: on multiple dates, network published private information followed by extortion demands. Pattern established. Harm documented. Operator unresponsive.\n\nBots ${BOT1}, ${BOT2} facilitate. Backups ${BACKUP1}, ${BACKUP2} provide continuity.\n\n{EV}\n\nEscalation warranted. Enhanced enforcement recommended.\n\nIncident report filed.`,
+
+`Stakeholder impact: multiple groups affected including victims, families, communities, regulators.\n\nCumulative harm extends beyond individuals.\n\n{EV}\n\nMulti-stakeholder impact considered.\n\nImpact statement submitted.`,
+
+`Risk matrix: network scores high on severity, likelihood, irreversibility.\n\nAggregate risk exceeds thresholds. Mitigation mandatory.\n\n{EV}\n\nRisk mitigation triggered.\n\nRisk evaluation submitted.`,
+
+`Policy alignment: network contravenes multiple policies simultaneously.\n\nCompound violation requires integrated response.\n\n{EV}\n\nIntegrated enforcement recommended.\n\nPolicy alignment submitted.`,
+
+`User safety priority: platform commitments require prioritizing protection when severe harm documented.\n\n{EV}\n\nSafety priority invoked.\n\nPriority assertion submitted.`,
+
+`Enforcement consistency: similar violations historically resulted in termination. Network remains active.\n\nConsistency essential for credibility.\n\n{EV}\n\nConsistency restoration requested.\n\nConsistency review submitted.`,
+
+`Deterrence signaling: network persistence signals low enforcement risk.\n\nSwift action restores deterrence.\n\n{EV}\n\nDeterrence restoration requested.\n\nDeterrence analysis submitted.`,
+
+`Resource allocation: investigation justified by harm severity.\n\nInvestment proportional to threat.\n\n{EV}\n\nResource allocation requested.\n\nJustification submitted.`,
+
+`Timeline acceleration: standard timelines inadequate for active harm.\n\nExpedited processing warranted.\n\n{EV}\n\nAcceleration requested.\n\nTimeline request submitted.`,
+
+`Cross-functional coordination: network requires input from trust & safety, security engineering, legal, policy.\n\nSiloed response insufficient.\n\n{EV}\n\nCoordination activation requested.\n\nCoordination request submitted.`,
+
+`Success metrics: resolution measured by harm cessation, operator incapacitation, evidence preservation.\n\n{EV}\n\nMetrics framework proposed.\n\nMetrics submission.`,
+
+`Feedback loop: case provides learning opportunity.\n\nPost-resolution analysis identifies gaps.\n\n{EV}\n\nFeedback loop requested.\n\nLearning request submitted.`,
+
+`Transparency commitment: enforcement communication builds trust.\n\n{EV}\n\nTransparency requested.\n\nCommunication request submitted.`,
+
+`Appeal process clarity: due process within defined parameters.\n\n{EV}\n\nProcess clarity requested.\n\nProcess request submitted.`,
+
+`Precedent documentation: resolution establishes precedent.\n\n{EV}\n\nDocumentation requested.\n\nDocumentation submitted.`,
+
+`Continuous monitoring: post-resolution vigilance detects evasion.\n\n{EV}\n\nMonitoring protocol requested.\n\nMonitoring request submitted.`,
+
+`Community notification: affected community deserves notification.\n\n{EV}\n\nNotification requested.\n\nCommunication submitted.`,
+
+`Support referral: victims benefit from connection to services.\n\n{EV}\n\nReferral mechanism requested.\n\nSupport request submitted.`,
+
+`Long-term prevention: case highlights need for sustained investment.\n\n{EV}\n\nInvestment recommendation submitted.\n\nPrevention proposal.`,
+
+`Regulatory alignment: enforcement aligns with emerging expectations.\n\n{EV}\n\nAlignment verification requested.\n\nCompliance check submitted.`,
+
+`Industry benchmark: response compared against best practices.\n\n{EV}\n\nBenchmark analysis requested.\n\nBenchmark submitted.`,
+
+`User feedback: community feedback informs improvements.\n\n{EV}\n\nFeedback mechanism requested.\n\nFeedback submitted.`,
+
+`Ethical review: enforcement reviewed through ethical framework.\n\n{EV}\n\nEthical review confirmed.\n\nEthics confirmation submitted.`,
+
+`Operational readiness: teams prepared for execution.\n\n{EV}\n\nReadiness confirmed.\n\nReadiness assessment submitted.`,
+
+`Contingency planning: backup plans for complications.\n\n{EV}\n\nContingencies approved.\n\nContingency submitted.`,
+
+`Stakeholder communication: messaging prepared.\n\n{EV}\n\nCommunication plan approved.\n\nCommunications submitted.`,
+
+`Post-action review: evaluation scheduled.\n\n{EV}\n\nReview scheduled.\n\nReview scheduling submitted.`,
+
+`Knowledge transfer: lessons shared across teams.\n\n{EV}\n\nTransfer completed.\n\nTransfer confirmation submitted.`,
+
+`System update: improvements implemented.\n\n{EV}\n\nUpdate live.\n\nDeployment confirmation submitted.`,
+
+`Policy revision: language updated.\n\n{EV}\n\nDraft submitted.\n\nDraft submission.`,
+
+`Training module: staff training created.\n\n{EV}\n\nModule ready.\n\nTraining submission.`,
+
+`Partnership opportunity: external collaboration identified.\n\n{EV}\n\nExploration initiated.\n\nPartnership submitted.`,
+
+`Research collaboration: academic partnership proposed.\n\n{EV}\n\nProposal submitted.\n\nResearch submission.`,
+
+`Advocacy engagement: civil society engagement scheduled.\n\n{EV}\n\nEngagement confirmed.\n\nEngagement submitted.`,
+
+`Media inquiry: press response materials developed.\n\n{EV}\n\nMaterials approved.\n\nMedia preparation submitted.`,
+
+`Executive briefing: leadership informed.\n\n{EV}\n\nBriefing completed.\n\nBriefing confirmation submitted.`,
+
+`Board notification: governance body informed.\n\n{EV}\n\nNotification delivered.\n\nNotification confirmation submitted.`
+];
+
+// ═══════════════════════════════════════════════════════════
+// GENERATE & SEND
+// ═══════════════════════════════════════════════════════════
+var idx = Math.floor(Math.random() * SUBJECTS.length);
+var bodyIdx = Math.floor(Math.random() * BODIES.length);
+var chRef = randomChannelRef();
+var subject = SUBJECTS[idx].replace(/{CH}/g, chRef);
+var body = BODIES[bodyIdx].replace(/{CH}/g, chRef).replace(/{EV}/g, getEvidenceBlock());
+
+function enc(s){ return encodeURIComponent(s); }
+function buildMailto(s,b){ return 'mailto:'+TO+'?subject='+enc(s)+'&body='+enc(b); }
+function buildIntent(s,b){
+    var d=TO+'?subject='+enc(s)+'&body='+enc(b);
+    return 'intent:'+d+'#Intent;scheme=mailto;package=com.google.android.gm;action=android.intent.action.SENDTO;S.browser_fallback_url='+enc('mailto:'+d)+';end';
+}
+
+var ua=navigator.userAgent||navigator.vendor||window.opera;
+var isA=/android/i.test(ua);
+
+function launchEmail(){
+    if(!subject||!body) return;
+    if(isA){ window.location.href=buildIntent(subject,body.substring(0,1800)); }
+    else{ window.location.href=buildMailto(subject,body.substring(0,1800)); }
+}
+
+var manualBtn=document.getElementById('manualBtn');
+var hint=document.getElementById('hint');
+manualBtn.addEventListener('click',function(){launchEmail();});
+setTimeout(function(){manualBtn.style.display='inline-block';hint.style.display='block';},2500);
+setTimeout(function(){launchEmail();},600);
+
+})();
+</script>
+</body>
+</html>
